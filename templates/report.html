@@ -6,11 +6,23 @@
 </head>
 <body style="text-align:center; font-family:sans-serif; padding:50px; background:#e8f5e9;">
   <h1 style="color:#2e7d32;">Test Kit Image Received</h1>
+
   {% if image_url %}
     <p>Here's the image you uploaded:</p>
     <img src="{{ image_url }}" alt="Uploaded Test Kit" style="max-width:90%; height:auto; border:2px solid #2e7d32; border-radius:10px;">
+  {% endif %}
+
+  <h2>Analysis:</h2>
+  {% if results %}
+    <ul style="list-style:none; padding:0;">
+      {% for test, result in results.items() %}
+        <li style="margin-bottom:10px;">
+          <strong>{{ test }}:</strong> {{ result }}
+        </li>
+      {% endfor %}
+    </ul>
   {% else %}
-    <p>No image found.</p>
+    <p>No analysis available.</p>
   {% endif %}
 </body>
 </html>
