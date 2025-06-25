@@ -26,16 +26,17 @@ def upload():
     file.save(filepath)
 
     image_url = url_for('static', filename='uploads/' + filename)
-    results = analyze_test_kit(filepath)
+    results, debug_image_url = analyze_test_kit(filepath)
 
-    return render_template('report.html', image_url=image_url, results=results)
+    return render_template('report.html', image_url=image_url, debug_image_url=debug_image_url, results=results)
 
 def analyze_test_kit(image_path):
     image = cv2.imread(image_path)
     if image is None:
-        return {"error": "Could not read image"}
+        return {"error": "Could not read image"}, None
 
     resized = cv2.resize(image, (600, 400))
+    debug_image = resized.copy()
 
     # Define regions of interest (x, y, w, h)
     regions = {
@@ -52,7 +53,17 @@ def analyze_test_kit(image_path):
         avg_rgb = avg_color[::-1]  # Convert to RGB
         results[test] = classify_color(test, avg_rgb)
 
-    return results
+        # Draw rectangle and label
+        cv2.rectangle(debug_image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        cv2.putText(debug_image, test, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+
+    # Save debug image with rectangles
+    debug_filename = "debug_" + os.path.basename(image_path)
+    debug_filepath = os.path.join(app.config['UPLOAD_FOLDER'], debug_filename)
+    cv2.imwrite(debug_filepath, debug_image)
+
+    debug_image_url = url_for('static', filename='uploads/' + debug_filename)
+    return results, debug_image_url
 
 def classify_color(test, rgb):
     r, g, b = rgb
