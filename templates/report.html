@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Scan Report</title>
+  <meta charset="UTF-8" />
+  <title>Test Kit Report</title>
 </head>
-<body>
-    <h1>Your Scan Result</h1>
-    <p>Image uploaded successfully!</p>
-    <img src="{{ image_url }}" alt="Uploaded Test Strip" style="max-width: 300px;">
-    <p>(Color analysis and treatment recommendations coming soon...)</p>
-    <a href="/">Scan Another</a>
+<body style="text-align:center; font-family:sans-serif; padding:50px; background:#e8f5e9;">
+  <h1 style="color:#2e7d32;">Test Kit Image Received</h1>
+  {% if image_url %}
+    <p>Here's the image you uploaded:</p>
+    <img src="{{ image_url }}" alt="Uploaded Test Kit" style="max-width:90%; height:auto; border:2px solid #2e7d32; border-radius:10px;">
+  {% else %}
+    <p>No image found.</p>
+  {% endif %}
 </body>
 </html>
