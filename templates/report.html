@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Strip Results</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    table { margin: 0 auto; border-collapse: collapse; }
+    td, th { padding: 10px 20px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Pool Test Results</h1>
+  
+  {% if image_path %}
+    <img src="{{ image_path }}" alt="Uploaded Image" width="300">
+  {% endif %}
+
+  <table>
+    <tr>
+      <th>Chemical</th>
+      <th>Value</th>
+    </tr>
+    {% for key, value in result.items() %}
+    <tr>
+      <td>{{ key }}</td>
+      <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <br>
+  <a href="/">Scan Another</a>
+</body>
+</html>
