@@ -12,6 +12,11 @@
     <img src="{{ image_url }}" alt="Uploaded Test Kit" style="max-width:90%; height:auto; border:2px solid #2e7d32; border-radius:10px;">
   {% endif %}
 
+  <h2>Analyzed Regions:</h2>
+  {% if debug_image_url %}
+    <img src="{{ debug_image_url }}" alt="Analyzed Image" style="max-width:90%; height:auto; border:2px dashed #555; border-radius:10px;">
+  {% endif %}
+
   <h2>Analysis:</h2>
   {% if results %}
     <ul style="list-style:none; padding:0;">
