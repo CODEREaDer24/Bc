@@ -1,35 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Test Strip Results</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
-    table { margin: 0 auto; border-collapse: collapse; }
-    td, th { padding: 10px 20px; border: 1px solid #ccc; }
-  </style>
+    <title>Scan Report</title>
 </head>
 <body>
-  <h1>Pool Test Results</h1>
-  
-  {% if image_path %}
-    <img src="{{ image_path }}" alt="Uploaded Image" width="300">
-  {% endif %}
-
-  <table>
-    <tr>
-      <th>Chemical</th>
-      <th>Value</th>
-    </tr>
-    {% for key, value in result.items() %}
-    <tr>
-      <td>{{ key }}</td>
-      <td>{{ value }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-
-  <br>
-  <a href="/">Scan Another</a>
+    <h1>Your Scan Result</h1>
+    <p>Image uploaded successfully!</p>
+    <img src="{{ image_url }}" alt="Uploaded Test Strip" style="max-width: 300px;">
+    <p>(Color analysis and treatment recommendations coming soon...)</p>
+    <a href="/">Scan Another</a>
 </body>
 </html>
