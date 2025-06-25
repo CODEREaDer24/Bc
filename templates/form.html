@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Upload Test Kit Image</title>
+    <title>Pool Test Strip Scanner</title>
 </head>
-<body style="text-align:center; font-family:sans-serif; padding:50px; background:#f0f8ff;">
-  <h1 style="color:#0077b6;">Upload Your Liquid Test Kit Image</h1>
-  <form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" accept="image/*" required><br><br>
-    <button type="submit">Upload</button>
-  </form>
+<body>
+    <h1>Scan Your Pool Test Strip</h1>
+    <form action="/report" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload and Analyze</button>
+    </form>
 </body>
 </html>
