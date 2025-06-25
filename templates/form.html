@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pool Test Strip Scanner</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    input[type="file"] { margin: 20px 0; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Scan Your Pool Test Strip</h1>
+  <form action="/scan-test-strip" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" required>
+    <br>
+    <button type="submit">Scan</button>
+  </form>
+</body>
+</html>
