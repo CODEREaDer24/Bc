@@ -1,33 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Test Kit Report</title>
-</head>
-<body style="text-align:center; font-family:sans-serif; padding:50px; background:#e8f5e9;">
-  <h1 style="color:#2e7d32;">Test Kit Image Received</h1>
+<h2>Analysis:</h2>
+{% if results %}
+  <ul style="list-style:none; padding:0; max-width:400px; margin:auto;">
+    {% for test, result in results.items() %}
+      {% set status = 'normal' %}
+      {% if 'High' in result %}
+        {% set status = 'high' %}
+      {% elif 'Low' in result %}
+        {% set status = 'low' %}
+      {% endif %}
+      <li style="margin-bottom:15px; padding:12px; border-radius:8px; 
+                 background-color: {% if status == 'high' %}#ffcccc
+                                   {% elif status == 'low' %}#fff0b3
+                                   {% else %}#d4edda{% endif %};
+                 color: {% if status == 'high' %}#a80000
+                         {% elif status == 'low' %}#8a6d00
+                         {% else %}#155724{% endif %};
+                 font-weight:600;
+                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <!-- Simple emoji icons -->
+        <span style="font-size:20px; margin-right:10px;">
+          {% if status == 'high' %}⬆️{% elif status == 'low' %}⬇️{% else %}✔️{% endif %}
+        </span>
+        {{ test }}: {{ result }}
 
-  {% if image_url %}
-    <p>Here's the image you uploaded:</p>
-    <img src="{{ image_url }}" alt="Uploaded Test Kit" style="max-width:90%; height:auto; border:2px solid #2e7d32; border-radius:10px;">
-  {% endif %}
-
-  <h2>Analyzed Regions:</h2>
-  {% if debug_image_url %}
-    <img src="{{ debug_image_url }}" alt="Analyzed Image" style="max-width:90%; height:auto; border:2px dashed #555; border-radius:10px;">
-  {% endif %}
-
-  <h2>Analysis:</h2>
-  {% if results %}
-    <ul style="list-style:none; padding:0;">
-      {% for test, result in results.items() %}
-        <li style="margin-bottom:10px;">
-          <strong>{{ test }}:</strong> {{ result }}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No analysis available.</p>
-  {% endif %}
-</body>
-</html>
+        <div style="font-weight:normal; margin-top:6px; font-size:0.9em;">
+          {% if test == 'pH' %}
+            {% if status == 'high' %}
+              Add pH reducer (acid) to lower pH.
+            {% elif status == 'low' %}
+              Add pH increaser (soda ash) to raise pH.
+            {% else %}
+              pH is balanced.
+            {% endif %}
+          {% elif test == 'Chlorine' %}
+            {% if status == 'high' %}
+              Chlorine is strong; no immediate action needed.
+            {% elif status == 'low' %}
+              Add chlorine to sanitize pool.
+            {% else %}
+              Chlorine levels are good.
+            {% endif %}
+          {% elif test == 'Alkalinity' %}
+            {% if status == 'high' %}
+              High alkalinity; consider adding acid.
+            {% elif status == 'low' %}
+              Add alkalinity increaser (baking soda).
+            {% else %}
+              Alkalinity is within the safe range.
+            {% endif %}
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No analysis available.</p>
+{% endif %}
